@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MyTestStudent Web - Zamonaviy kompyuterlashtirilgan bilimni tekshirish tizimi">
+  <meta name="theme-color" content="#2563eb">
+  <title>MyTestStudent Web</title>
+  
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./css/app.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Application Header -->
+    <header class="app-header">
+      <div class="header-branding">
+        <div class="app-logo">MT</div>
+        <div class="header-titles">
+          <h1 data-i18n="app.title">MyTestStudent Web</h1>
+          <p data-i18n="app.subtitle">Kompyuterlashtirilgan bilimni tekshirish tizimi</p>
+        </div>
+      </div>
+      
+      <div class="header-controls">
+        <select id="lang-select" class="form-select lang-select-box" style="padding: 0.35rem 0.6rem; font-size: 0.85rem; width: auto;">
+          <option value="uz">O'zbekcha</option>
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+        </select>
+        
+        <button id="theme-toggle-btn" type="button" class="btn btn-secondary btn-sm theme-toggle-btn" title="Mavzuni almashtirish">
+          🌓
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- VIEW 1: TEST SELECTION & UPLOAD -->
+      <section id="view-selector" class="view-section active">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title" data-i18n="selector.title">Test to'plamini tanlang</h2>
+            <p class="card-subtitle" data-i18n="selector.subtitle">Mavjud testlardan birini tanlang yoki .json / .mtf / .csv faylini yuklang</p>
+          </div>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button id="load-sample-btn" type="button" class="btn btn-primary">
+              📚 <span data-i18n="selector.load_sample">Namunaviy test: Ginekologiya va Akusherlik (5-kurs)</span>
+            </button>
+          </div>
+
+          <div id="upload-dropzone" class="upload-dropzone">
+            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p style="font-weight: 600;" data-i18n="selector.upload_file">Faylni tanlang yoki shu yerga tashlang (.json, .mtf, .csv)</p>
+            <input type="file" id="test-file-input" accept=".json,.mtf,.csv" style="display: none;">
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="font-size: 1.1rem; margin-bottom: 1rem;" data-i18n="selector.stored_tests">Saqlangan testlar</h3>
+          <div id="saved-tests-list">
+            <!-- Dynamically populated from IndexedDB -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: STUDENT REGISTRATION -->
+      <section id="view-register" class="view-section">
+        <div class="card" style="max-width: 580px; margin: 2rem auto; width: 100%;">
+          <div class="card-header">
+            <h2 class="card-title" data-i18n="reg.title">Talabani ro'yxatga olish</h2>
+            <p id="reg-test-title" style="font-weight: 700; color: var(--color-primary); margin: 0.25rem 0;"></p>
+            <p class="card-subtitle" data-i18n="reg.subtitle">Testni boshlashdan oldin ma'lumotlaringizni kiriting</p>
+          </div>
+
+          <form id="registration-form" onsubmit="event.preventDefault();">
+            <div class="form-group">
+              <label class="form-label" for="reg-student-name" data-i18n="reg.fullname">F.I.SH. (Familiya, Ism)</label>
+              <input type="text" id="reg-student-name" class="form-input" required data-i18n="reg.fullname_placeholder" placeholder="Masalan: Rayimov Olloberdi">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-student-group" data-i18n="reg.group">Guruh / Kurs</label>
+              <input type="text" id="reg-student-group" class="form-input" data-i18n="reg.group_placeholder" placeholder="Masalan: 501-guruh, Davolash ishi">
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+              <button id="btn-begin-test" type="button" class="btn btn-primary" style="width: 100%;">
+                ▶ <span data-i18n="reg.btn_begin">Testni boshlash</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- VIEW 3: ACTIVE TESTING WORKSPACE -->
+      <section id="view-testing" class="view-section">
+        <!-- Top Testing Bar -->
+        <div class="test-header-bar">
+          <div class="test-info-group">
+            <span id="active-test-title" class="test-title-active">Test Title</span>
+            <span id="active-test-counter" class="test-counter">Savol 1 / 10</span>
+          </div>
+
+          <div class="timer-widget">
+            <span>⏱</span>
+            <span id="timer-display">30:00</span>
+          </div>
+        </div>
+
+        <!-- Testing Workspace Grid -->
+        <div class="testing-layout">
+          <!-- Question Pane -->
+          <div class="question-card">
+            <div class="question-meta-row">
+              <span id="qtype-instruction" class="qtype-instruction">Bitta to'g'ri javobni tanlang</span>
+              <span id="q-weight-badge" class="question-weight-badge">1 ball</span>
+            </div>
+
+            <div id="question-stem" class="question-stem">
+              Savol matni yuklanmoqda...
+            </div>
+
+            <!-- Dynamic Answer Options Container -->
+            <div id="answers-container" class="answers-container"></div>
+
+            <!-- Navigation Actions -->
+            <div class="question-nav-footer">
+              <div style="display: flex; gap: 0.5rem;">
+                <button id="btn-prev" type="button" class="btn btn-secondary">
+                  « <span data-i18n="test.btn_prev">Oldingi</span>
+                </button>
+                <button id="btn-next" type="button" class="btn btn-primary">
+                  <span data-i18n="test.btn_next">Keyingi</span> »
+                </button>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem;">
+                <button id="btn-flag" type="button" class="btn btn-outline">
+                  🏳 <span data-i18n="test.flag">Belgilash</span>
+                </button>
+                <button id="btn-finish" type="button" class="btn btn-danger">
+                  ✓ <span data-i18n="test.btn_finish">Testni yakunlash</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar Question Palette -->
+          <aside class="palette-card">
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem;" data-i18n="test.palette_title">Savollar palitrasi</h4>
+            
+            <div class="palette-legend">
+              <div class="legend-item">
+                <span class="legend-dot" style="background-color: var(--palette-current);"></span>
+                <span data-i18n="test.palette_current">Joriy</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background-color: var(--color-success);"></span>
+                <span data-i18n="test.palette_answered">Javob berilgan</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background-color: var(--color-warning);"></span>
+                <span data-i18n="test.palette_flagged">Belgilangan</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background-color: var(--text-muted);"></span>
+                <span data-i18n="test.palette_unanswered">Bo'sh</span>
+              </div>
+            </div>
+
+            <div id="palette-grid" class="palette-grid">
+              <!-- Dynamically populated buttons -->
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- VIEW 4: RESULTS DASHBOARD -->
+      <section id="view-results" class="view-section">
+        <div class="results-dashboard">
+          <div class="card">
+            <h2 class="card-title" data-i18n="results.title">Test natijalari</h2>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 0.75rem; font-size: 0.95rem;">
+              <div><strong data-i18n="results.student">Talaba:</strong> <span id="res-student-name">-</span></div>
+              <div><strong data-i18n="results.group">Guruhi:</strong> <span id="res-student-group">-</span></div>
+              <div><strong data-i18n="results.test_name">Test:</strong> <span id="res-test-name">-</span></div>
+              <div><strong data-i18n="results.date">Sana:</strong> <span id="res-date-time">-</span></div>
+            </div>
+          </div>
+
+          <div class="results-hero-card">
+            <!-- Circular Score Meter -->
+            <div class="results-score-circle">
+              <svg class="score-circle-svg" viewBox="0 0 160 160">
+                <circle class="score-circle-bg" cx="80" cy="80" r="64" />
+                <circle id="score-circle-progress" class="score-circle-progress" cx="80" cy="80" r="64" />
+              </svg>
+              <div class="score-circle-center">
+                <span id="score-circle-percent" class="score-circle-percent">0%</span>
+                <span class="score-circle-label" data-i18n="results.percentage">Foiz</span>
+              </div>
+            </div>
+
+            <!-- Grade & Status -->
+            <div class="results-grade-info">
+              <div id="grade-badge" class="grade-badge grade-5">5 (A'lo)</div>
+              <div id="status-badge" class="status-badge passed">Sinovdan o'tdi</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-top: 0.5rem;">
+                <span data-i18n="results.score">To'plangan ball:</span> <span id="res-total-score">0 / 0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Metrics Breakdown Grid -->
+          <div class="metrics-grid">
+            <div class="metric-card" style="border-left: 4px solid var(--color-success);">
+              <span id="res-correct-count" class="metric-val" style="color: var(--color-success);">0</span>
+              <span class="metric-lbl" data-i18n="results.correct_answers">To'g'ri javoblar</span>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid var(--color-warning);">
+              <span id="res-partial-count" class="metric-val" style="color: var(--color-warning);">0</span>
+              <span class="metric-lbl" data-i18n="results.partial_answers">Qisman to'g'ri</span>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid var(--color-danger);">
+              <span id="res-incorrect-count" class="metric-val" style="color: var(--color-danger);">0</span>
+              <span class="metric-lbl" data-i18n="results.incorrect_answers">Noto'g'ri javoblar</span>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid var(--text-muted);">
+              <span id="res-unanswered-count" class="metric-val" style="color: var(--text-muted);">0</span>
+              <span class="metric-lbl" data-i18n="results.unanswered">Javobsiz qoldirilgan</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="btn-go-review" type="button" class="btn btn-primary">
+              🔍 <span data-i18n="results.btn_review">Xatolarni tahlil qilish</span>
+            </button>
+            <button id="btn-retry-test" type="button" class="btn btn-secondary">
+              🔄 <span data-i18n="results.btn_retry">Qayta topshirish</span>
+            </button>
+            <button id="btn-export-json" type="button" class="btn btn-secondary">
+              📥 <span data-i18n="results.btn_export_json">JSON yuklab olish</span>
+            </button>
+            <button id="btn-export-csv" type="button" class="btn btn-secondary">
+              📊 <span data-i18n="results.btn_export_csv">CSV yuklab olish</span>
+            </button>
+            <button id="btn-print-report" type="button" class="btn btn-outline">
+              🖨 <span data-i18n="results.btn_print">Chop etish</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 5: REVIEW MISTAKES -->
+      <section id="view-review" class="view-section">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+            <div>
+              <h2 class="card-title" data-i18n="review.title">Xatolar ustida ishlash</h2>
+              <p class="card-subtitle" data-i18n="review.subtitle">Savollar bo'yicha to'liq tahlil, sizning javoblaringiz va izohlar</p>
+            </div>
+            <button id="btn-back-results" type="button" class="btn btn-secondary">
+              <span data-i18n="review.btn_back_results">« Natijalarga qaytish</span>
+            </button>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+            <button type="button" class="btn btn-secondary btn-sm review-filter-tab active" data-filter="all" data-i18n="review.filter_all">Barcha savollar</button>
+            <button type="button" class="btn btn-secondary btn-sm review-filter-tab" data-filter="correct" data-i18n="review.filter_correct">Faqat to'g'ri</button>
+            <button type="button" class="btn btn-secondary btn-sm review-filter-tab" data-filter="incorrect" data-i18n="review.filter_incorrect">Xatolar va qisman</button>
+          </div>
+
+          <!-- Review Question Cards List -->
+          <div id="review-list-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>MyTestStudent Web • O'zbekiston tibbiyot va ta'lim muassasalari uchun kompyuterlashtirilgan test sinovlari tizimi</p>
+    </footer>
+  </div>
+
+  <!-- Main ES Module Script -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="grad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#grad512)"/>
+  <!-- Monitor Frame -->
+  <rect x="96" y="116" width="320" height="224" rx="24" fill="#ffffff" opacity="0.95"/>
+  <rect x="116" y="136" width="280" height="184" rx="16" fill="#1e293b"/>
+  <!-- Monitor Stand -->
+  <path d="M224 340 L288 340 L304 394 L208 394 Z" fill="#ffffff" opacity="0.95"/>
+  <rect x="180" y="394" width="152" height="20" rx="10" fill="#ffffff"/>
+  <!-- Checkmark inside Screen -->
+  <polyline points="170,230 220,280 340,175" fill="none" stroke="#22c55e" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

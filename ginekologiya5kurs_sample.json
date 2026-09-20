@@ -1,0 +1,152 @@
+{
+  "version": "1.0",
+  "meta": {
+    "title": "Ginekologiya va Akusherlik (5-kurs)",
+    "description": "Toshkent Tibbiyot Akademiyasi 5-kurs talabalari uchun klinik test sinovlari to'plami",
+    "author": "Akusherlik va ginekologiya kafedrasi",
+    "createdAt": "2026-09-20",
+    "totalQuestionsInFile": 10
+  },
+  "settings": {
+    "timeLimitMinutes": 20,
+    "timeLimitPerQuestion": 0,
+    "questionsToSelect": 10,
+    "randomizeQuestions": true,
+    "randomizeAnswers": true,
+    "allowPrevious": true,
+    "immediateFeedback": false,
+    "showResultsAtEnd": true,
+    "allowReview": true,
+    "passingScorePercent": 55,
+    "gradingScale": {
+      "type": "5-point",
+      "cutoffs": {
+        "5": 86,
+        "4": 71,
+        "3": 55,
+        "2": 0
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "type": "single",
+      "weight": 1,
+      "text": "Homiladorlikning dastlabki muddatlarida (12 haftagacha) bimanual tekshiruvda bachadonning bir burchagi bo'rtib chiqishi va assimetriyasi qaysi belgi hisoblanadi?",
+      "answers": [
+        { "id": "a1", "text": "Piskachek belgisi", "correct": true },
+        { "id": "a2", "text": "Gegar belgisi", "correct": false },
+        { "id": "a3", "text": "Snegirev belgisi", "correct": false },
+        { "id": "a4", "text": "Gubarev va Gaus belgisi", "correct": false }
+      ],
+      "explanation": "Homiladorlikning 7-8 haftalarida blastotsista implantatsiyasi sohasida bachadon burchagining assimetrik kattalashishi Piskachek belgisi deyiladi."
+    },
+    {
+      "id": "q2",
+      "type": "single",
+      "weight": 1,
+      "text": "Bachadon bo'yni saratoni skriningida xalqaro 'oltin standart' hisoblangan birlamchi sitologik tekshiruv usulini belgilang:",
+      "answers": [
+        { "id": "a1", "text": "Pap-test (Papanikolau sitologik surtmasi)", "correct": true },
+        { "id": "a2", "text": "Kuldoskopiya", "correct": false },
+        { "id": "a3", "text": "Gisterometriya", "correct": false },
+        { "id": "a4", "text": "Shiller probasi", "correct": false }
+      ],
+      "explanation": "Papanikolau surtmasi (Pap-test) va suyuqlik sitologiyasi bachadon bo'yni saratoni va prekanser holatlarini aniqlashda asosiy skrining usulidir."
+    },
+    {
+      "id": "q3",
+      "type": "multiple",
+      "weight": 2,
+      "scoring": "partial_with_penalty",
+      "text": "Ektopik (nay) homiladorligi nay yorilishi turi bo'yicha buzilganda kuzatiladigan asosiy klinik belgilarni ko'rsating (bir nechta javob):",
+      "answers": [
+        { "id": "a1", "text": "Qorin pastki sohasida to'satdan xanjarsimon o'tkir og'riq", "correct": true },
+        { "id": "a2", "text": "Ichki qon ketish belgilari (arterial gipotenziya, taxikardiya, rangparlik)", "correct": true },
+        { "id": "a3", "text": "Kulenkampff musbat belgisi (qorin devori taranglashmagan holda og'riqlilik)", "correct": true },
+        { "id": "a4", "text": "Baland isitma va kuchli leykotsitoz (38.5°C dan yuqori)", "correct": false },
+        { "id": "a5", "text": "Ko'p miqdorda yiringli ajralmalar kelishi", "correct": false }
+      ],
+      "explanation": "Nay yorilganda gemorragik shok va peritonizm belgilari ustunlik qiladi. Yuqori isitma va yiringli ajralmalar esa o'tkir yallig'lanish jarayoniga xos."
+    },
+    {
+      "id": "q4",
+      "type": "multiple",
+      "weight": 2,
+      "scoring": "partial_with_penalty",
+      "text": "Bakterial vaginoz diagnostikasida Emsel (Amsel) mezonlariga kiruvchi belgilar qaysilar?",
+      "answers": [
+        { "id": "a1", "text": "Qin ajralmasining o'ziga xos 'baliq hidi' (10% KOH qo'shilganda amin testi musbat)", "correct": true },
+        { "id": "a2", "text": "Mikroskopiyada 'kalit hujayralar' (clue cells) mavjudligi", "correct": true },
+        { "id": "a3", "text": "Qin muhiti pH ko'rsatkichining 4.5 dan yuqori bo'lishi", "correct": true },
+        { "id": "a4", "text": "Yiringli massiv ekssudat va shilliq qavatda qonaydigan yaralar", "correct": false }
+      ],
+      "explanation": "Amsel mezonlari: bir jinsli kulrang-oq ajralma, pH > 4.5, amin testi musbat, va 'kalit hujayralar'."
+    },
+    {
+      "id": "q5",
+      "type": "boolean",
+      "weight": 1,
+      "text": "Ginekologik amaliyotda Shiller probasi musbat deb baholanishi uchun Lyugol eritmasi surtilgan soha to'q jigarrang tusga bo'yalishi kerakmi?",
+      "correctAnswer": false,
+      "explanation": "Nogiron (patologik) epiteliyda glikogen yetishmovchiligi tufayli Lyugol eritmasi bilan bo'yalmaydi (yod-negativ soha). Normal glikogenga boy qatlam esa bir tekis to'q jigarrang bo'ladi."
+    },
+    {
+      "id": "q6",
+      "type": "text",
+      "weight": 1,
+      "text": "Homila yurak urish tezligini va bachadon qisqarish faolligini sinxron grafik ro'yxatga oluvchi instrumental tekshiruv usuli nima deb ataladi? (Qisqartma yoki to'liq nomi)",
+      "validAnswers": ["Kardiotokografiya", "KTG", "Cardiotocography", "CTG"],
+      "caseSensitive": false,
+      "explanation": "Kardiotokografiya (KTG) homila holatini baholashda keng qo'llaniladi."
+    },
+    {
+      "id": "q7",
+      "type": "number",
+      "weight": 1,
+      "text": "Chaqaloq tug'ilgandan keyin Apgar shkalasi bo'yicha maksimal mumkin bo'lgan eng yuqori ball nechaga teng?",
+      "correctNumber": 10,
+      "tolerance": 0,
+      "explanation": "Apgar shkalasi 5 ta mezondan iborat bo'lib, har biri 0 dan 2 ballgacha baholanadi (maksimal 10 ball)."
+    },
+    {
+      "id": "q8",
+      "type": "order",
+      "weight": 2,
+      "text": "Normal tug'ruqning I davrida bachadon bo'ynining ochilish mexanizmi bosqichlarini xronologik ketma-ketlikda joylashtiring:",
+      "orderedItems": [
+        { "id": "step1", "text": "Muntazam to'lg'oqlarning shakllanishi" },
+        { "id": "step2", "text": "Bachadon bo'ynining silliqlanishi va qisqarishi" },
+        { "id": "step3", "text": "Bachadon bo'yni tashqi zevining to'liq ochilishi (10-12 sm)" },
+        { "id": "step4", "text": "Qog'onoq suvining o'z vaqtida yorilishi va ketishi" }
+      ],
+      "explanation": "Normal fiziologik tug'ruqda to'lg'oqlar boshlanadi, bo'yin silliqlanadi, to'liq ochiladi va qog'onoq pufagi yoriladi."
+    },
+    {
+      "id": "q9",
+      "type": "match",
+      "weight": 3,
+      "text": "Quyidagi ginekologik kasalliklar va ularning yetakchi qo'zg'atuvchilarini muvofiqlashtiring:",
+      "pairs": [
+        { "leftId": "l1", "left": "Bakterial vaginoz", "rightId": "r1", "right": "Gardnerella vaginalis va anaerob assotsiatsiya" },
+        { "leftId": "l2", "left": "Vulvovaginal kandidoz", "rightId": "r2", "right": "Candida albicans achitqisimon zamburug'lari" },
+        { "leftId": "l3", "left": "So'zak (gonoreya)", "rightId": "r3", "right": "Neisseria gonorrhoeae diplokokki" }
+      ],
+      "explanation": "Har bir nozologiya o'zining mikrobiologik xususiyatiga va etiotrop terapiyasiga ega."
+    },
+    {
+      "id": "q10",
+      "type": "single",
+      "weight": 1,
+      "text": "Normal fiziologik homiladorlikda sariq tana faoliyatini saqlab turuvchi va platsenta tomonidan sintezlanadigan asosiy gormon:",
+      "answers": [
+        { "id": "a1", "text": "Inson xorionik gonadotropini (b-hCG)", "correct": true },
+        { "id": "a2", "text": "Prolaktin", "correct": false },
+        { "id": "a3", "text": "Luteinlovchi gormon (LG)", "correct": false },
+        { "id": "a4", "text": "Oksitotsin", "correct": false }
+      ],
+      "explanation": "b-hCG (Xorionik gonadotropin) sinsitiotrofoblastlar tomonidan ishlab chiqarilib, homiladorlikning dastlabki oylarida sariq tana faoliyatini va progesteron sintezini quvvatlaydi."
+    }
+  ]
+}

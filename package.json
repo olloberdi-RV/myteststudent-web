@@ -1,0 +1,11 @@
+{
+  "name": "myteststudent-web",
+  "version": "1.0.0",
+  "description": "Modern Web recreation of MyTestStudent 10.2.0.2 educational testing system",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/scoring.test.js && node tests/engine.test.js"
+  },
+  "keywords": ["mytest", "education", "testing", "cbt", "quiz", "offline-first", "pwa"],
+  "license": "MIT"
+}
